@@ -1,15 +1,11 @@
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
-name: 'project6'
+# Name your project!
+name: 'dbt_finance_economics_events'
 version: '1.0.0'
 
-# This setting configures which "profile" dbt uses for this project.
-profile: 'project6'
+# Which profile to use
+profile: 'dbt_finance_economics_events'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+# File paths for dbt resources
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -17,16 +13,23 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-clean-targets:         # directories to be removed by `dbt clean`
+# Where to clean with `dbt clean`
+clean-targets:
   - "target"
   - "dbt_packages"
 
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# This config applies only to models in the `models/stg` folder.
+# Model configurations by folder
 models:
-  project6:
-    stg:
-      +materialized: table
-      +schema: dbt_project6_stg
+  dbt_finance_economics_events:
+    staging:
+      +schema: dbt_finance_economics_events_stg
+      +materialized: incremental
+    intermediate:
+      +schema: dbt_finance_economics_events_int
+      +materialized: incremental
+    mart:
+      +schema: dbt_finance_economics_events_mrt
+      +materialized: incremental
+
+
+

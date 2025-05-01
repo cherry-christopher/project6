@@ -2,85 +2,89 @@ version: 2
 
 sources:
   - name: finance_economics_events_stg
-    database: steady-service-448416-k2
-    schema: finance_economics_events_stg
     tables:
       - name: crime_data
       - name: gdp
       - name: mortality_and_natality
       - name: state_energy_consumption
+      - name: state_level_unemployment_data
       - name: state_exp_data_1991_2024
       - name: state_exp_data_1991_2024_key
-      - name: state_level_unemployment_data
       - name: states_cities
       - name: us_geocode
 
 models:
   - name: stg_crime_data
-    description: "Staging model for crime data"
     columns:
-      - name: year
-        tests: [not_null]
       - name: state
+        tests: [not_null]
+      - name: year
         tests: [not_null]
 
   - name: stg_gdp
-    description: "Staging model for GDP data"
     columns:
-      - name: year
-        tests: [not_null]
       - name: state
+        tests: [not_null]
+      - name: year
         tests: [not_null]
       - name: category
         tests: [not_null]
 
   - name: stg_mortality_and_natality
-    description: "Staging model for mortality and natality data"
     columns:
+      - name: state
+        tests: [not_null]
       - name: year
         tests: [not_null]
-      - name: state
+      - name: month
+        tests: [not_null]
+      - name: indicator
         tests: [not_null]
 
   - name: stg_state_energy_consumption
-    description: "Staging model for state energy consumption"
     columns:
-      - name: year
-        tests: [not_null]
       - name: state
         tests: [not_null]
-      - name: value
+      - name: year
+        tests: [not_null]
+      - name: sector
+        tests: [not_null]
+
+  - name: stg_state_level_unemployment_data
+    columns:
+      - name: fips_code
+        tests: [not_null]
+      - name: year
+        tests: [not_null]
+      - name: employment
+        tests: [not_null]
+      - name: unemployment
         tests: [not_null]
 
   - name: stg_state_exp_data_1991_2024
-    description: "Staging model for state capital expenditure data"
     columns:
-      - name: _data_source
+      - name: state
         tests: [not_null]
-      - name: _load_time
+      - name: year
         tests: [not_null]
 
   - name: stg_state_exp_data_1991_2024_key
-    description: "Staging model for expenditure keys"
-
-  - name: stg_state_level_unemployment_data
-    description: "Staging model for state-level unemployment data"
     columns:
-      - name: year
+      - name: the_abbreviation
         tests: [not_null]
-      - name: state_and_area
+      - name: the_full_name
         tests: [not_null]
 
   - name: stg_states_cities
-    description: "Staging model for states and cities"
     columns:
       - name: state_id
+        tests: [not_null]
+      - name: cities
         tests: [not_null]
       - name: state_name
         tests: [not_null]
 
   - name: stg_us_geocode
-    description: "Staging model for US geocode"
     columns:
       - name: state_abbreviation
         tests: [not_null]
